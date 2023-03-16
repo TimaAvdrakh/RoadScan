@@ -1,8 +1,8 @@
-from .models import Shop
+from .models import RoadCrack
 from rest_framework import serializers
 
-class ShopSerializer(serializers.ModelSerializer):
 
+class CrackSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Shop
-        fields = ("name", "location", "address", "city")
+        model = RoadCrack
+        fields = ("name", "address", "city", "counter", "approve", "created_at")
