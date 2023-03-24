@@ -15,7 +15,6 @@ class RoadCrackListAPIView(ListAPIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
-        # Extract data from the request
         location = request.data.get('location')
         address = request.data.get('address')
         city = request.data.get('city')
@@ -32,7 +31,6 @@ class RoadCrackListAPIView(ListAPIView):
             serializer = RoadCrackSerializer(existing_crack)
             return Response(serializer.data)
 
-        # Create a new RoadCrack object if it doesn't exist
         new_crack = RoadCrack.objects.create(
             location=location,
             address=address,
