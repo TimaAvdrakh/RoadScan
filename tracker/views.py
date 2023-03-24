@@ -20,7 +20,8 @@ class RoadCrackListAPIView(ListAPIView):
         city = request.data.get('city')
         danger_level = request.data.get('danger_level')
 
-        existing_crack = RoadCrack.objects.filter(location=location).first()
+        distance_threshold = 1
+        existing_crack = RoadCrack.objects.filter(location__distance_lte=(location, distance_threshold)).first()
         if existing_crack:
             if existing_crack.requested_amount >= 3:
                 existing_crack.approved = True
