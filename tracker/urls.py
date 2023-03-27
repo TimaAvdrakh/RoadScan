@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import list_create_shops
+
+from tracker import views
 
 app_name = 'tracker'
 
 urlpatterns = [
-    path('', list_create_shops, name="list")
-    # path('<int:pk>/', TodoDetailAPIView.as_view(), name="detail"),
+    path('', views.RoadCrackListAPIView.as_view()),
+    path('policebump', views.PoliceBumpListAPIView.as_view())
 ]

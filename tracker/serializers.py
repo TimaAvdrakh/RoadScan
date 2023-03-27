@@ -1,8 +1,17 @@
-from .models import Shop
 from rest_framework import serializers
 
-class ShopSerializer(serializers.ModelSerializer):
+from tracker.models import RoadCrack, PoliceBump
+
+
+class RoadCrackSerializer(serializers.ModelSerializer):
+    city = serializers.ReadOnlyField(source='city')
 
     class Meta:
-        model = Shop
-        fields = ("name", "location", "address", "city")
+        model = RoadCrack
+        fields = '__all__'
+
+
+class PoliceBumpSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PoliceBump
+        fields = '__all__'
