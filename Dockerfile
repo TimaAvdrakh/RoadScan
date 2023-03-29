@@ -18,7 +18,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc
 
 RUN apt-get install -y gdal-bin python3-gdal
 RUN pip install -r requirements.txt
-RUN pip install psycopg2-binary
+RUN apt install libsqlite3-mod-spatialite
+RUN #pip install psycopg2-binary
 ADD . /code/
 #EXPOSE 8000/tcp
 #ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8000"]
