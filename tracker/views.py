@@ -12,7 +12,7 @@ from tracker.serializers import RoadCrackSerializer, PoliceBumpSerializer
 
 class RoadCrackListAPIView(ListAPIView):
     serializer_class = RoadCrackSerializer
-    pagination_class = SimplePagination
+    # pagination_class = SimplePagination
     queryset = RoadCrack.objects.filter(approved=True)
     # permission_classes = [IsAuthenticated]
 
@@ -21,26 +21,28 @@ class RoadCrackListAPIView(ListAPIView):
         latitude = request.data.get('latitude')
         print(longitude, latitude)
         location = Point(float(longitude), float(latitude), srid=4326)
-        address = request.data.get('address')
-        # city = request.data.get('city')
+        # address = request.data.get('address')
+        city = request.data.get('city')
         danger_level = request.data.get('danger_level')
 
         distance_threshold = 1
         # existing_crack = RoadCrack.objects.filter(location__distance_lte=(location, distance_threshold)).first()
-        existing_crack = RoadCrack.objects.annotate(distance=Distance('location', location)).order_by('distance').first()
-        if existing_crack:
+        existing_crack = RoadCrack.objects.annotate(distance=Distance('location', location))\
+                                          .order_by('distance').first()
+        if location.distance(existing_crack.location) < 2:
             if existing_crack.requested_amount >= 3:
                 existing_crack.approved = True
             else:
                 existing_crack.requested_amount += 1
             existing_crack.save()
-
             serializer = RoadCrackSerializer(existing_crack)
             return Response(serializer.data)
 
         new_crack = RoadCrack.objects.create(
+            longitude=float(longitude),
+            latitude=float(latitude),
             location=location,
-            address=address,
+            city=city,
             danger_level=danger_level
         )
         serializer = RoadCrackSerializer(new_crack)

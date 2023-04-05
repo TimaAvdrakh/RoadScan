@@ -4,11 +4,11 @@ from tracker.models import RoadCrack, PoliceBump
 
 
 class RoadCrackSerializer(serializers.ModelSerializer):
-    # city = serializers.ReadOnlyField(source='city')
+    city = serializers.CharField(default="Almaty")
 
     class Meta:
         model = RoadCrack
-        exclude = ('location', "approved", "requested_amount")
+        exclude = ('location', "approved", "requested_amount", "address")
 
 
 class PoliceBumpSerializer(serializers.ModelSerializer):

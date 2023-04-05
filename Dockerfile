@@ -21,5 +21,5 @@ RUN pip install -r requirements.txt
 RUN apt install libsqlite3-mod-spatialite
 RUN #pip install psycopg2-binary
 ADD . /code/
-#EXPOSE 8000/tcp
-#ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+EXPOSE 8000
+ENTRYPOINT ["python", "manage.py", "runserver", "0.0.0.0:8000"]
