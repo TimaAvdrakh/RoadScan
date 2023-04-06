@@ -1,1 +1,1 @@
-web: gunicorn roadscan.wsgi
+web: gunicorn RoadScan.wsgi
