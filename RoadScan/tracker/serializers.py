@@ -1,8 +1,15 @@
-from .models import RoadCrack
 from rest_framework import serializers
+from models import RoadCrack, PoliceBump
 
 
-class CrackSerializer(serializers.ModelSerializer):
+class RoadCrackSerializer(serializers.ModelSerializer):
+    city = serializers.CharField(default="Almaty")
+
     class Meta:
         model = RoadCrack
-        fields = ("name", "address", "city", "counter", "approve", "created_at")
+        exclude = ('location', "approved", "requested_amount", "address")
+
+class PoliceBumpSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PoliceBump
+        fields = '__all__'

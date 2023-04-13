@@ -1,9 +1,9 @@
 from django.urls import path
-from .views import list_create_crack
+import views
 
 app_name = 'tracker'
 
 urlpatterns = [
-    path('', list_create_crack, name="list")
-    # path('<int:pk>/', TodoDetailAPIView.as_view(), name="detail"),
+    path('roadcrack/', views.RoadCrackListAPIView.as_view()),
+    path('policebump/', views.PoliceBumpListAPIView.as_view())
 ]
