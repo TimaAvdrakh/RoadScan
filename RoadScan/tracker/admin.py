@@ -1,12 +1,14 @@
-from django.contrib.gis.admin import OSMGeoAdmin, GeoModelAdmin
-from .models import RoadCrack
-from .models import Police
 from django.contrib import admin
+from django.contrib.gis.admin import GeoModelAdmin
+
+from models import RoadCrack, PoliceBump
+
 
 @admin.register(RoadCrack)
-class Admin(GeoModelAdmin):
-    list_display = ('name', 'location', 'counter', 'approve', 'created_at')
+class RoadCrackAdmin(GeoModelAdmin):
+    list_display = ('location', 'address', 'city')
 
-@admin.register(Police)
-class Admin(OSMGeoAdmin):
-    list_display = ("name", "address", "city", "approve", "created_at")
+
+@admin.register(PoliceBump)
+class PoliceBumpAdmin(GeoModelAdmin):
+    list_display = ('location', 'address', 'city')
