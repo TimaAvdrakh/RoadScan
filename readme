@@ -1,0 +1,16 @@
+Deploying to heroku
+
+1. Create Docker Image
+
+       docker build -t roadscaner .
+
+       EXPOSE 8000
+       EntryPoint python manage.py runserver
+2. Push to heroku
+
+        sudo heroku container:push web -a=stormy-badlands-01638
+
+3. Release app
+
+        sudo heroku container:release  -a=stormy-badlands-01638 web
+

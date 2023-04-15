@@ -29,8 +29,8 @@ class RoadCrackListAPIView(ListAPIView):
         # existing_crack = RoadCrack.objects.filter(location__distance_lte=(location, distance_threshold)).first()
         existing_crack = RoadCrack.objects.annotate(distance=Distance('location', location))\
                                           .order_by('distance').first()
-        if location.distance(existing_crack.location) < 2:
-            if existing_crack.requested_amount >= 3:
+        if location.distance(existing_crack.location) < 1:
+            if existing_crack.requested_amount == 2:
                 existing_crack.approved = True
             else:
                 existing_crack.requested_amount += 1
@@ -39,6 +39,7 @@ class RoadCrackListAPIView(ListAPIView):
             return Response(serializer.data)
 
         new_crack = RoadCrack.objects.create(
+            requested_amount=1,
             longitude=float(longitude),
             latitude=float(latitude),
             location=location,
@@ -51,6 +52,6 @@ class RoadCrackListAPIView(ListAPIView):
 
 class PoliceBumpListAPIView(ListAPIView):
     serializer_class = PoliceBumpSerializer
-    pagination_class = SimplePagination
+    # pagination_class = SimplePagination
     queryset = PoliceBump.objects.all()
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
